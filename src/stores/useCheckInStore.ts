@@ -1,12 +1,18 @@
 import { create } from "zustand";
-import type { CheckInData } from "../types/fitness";
+import type { CheckInData, Recommendation } from "../types/fitness";
 
 interface State {
-  data: CheckInData | null;
-  setData: (data: CheckInData) => void;
+  checkIn: CheckInData | null;
+  recommendation: Recommendation | null;
+  setCheckIn: (data: CheckInData) => void;
+  setRecommendation: (rec: Recommendation) => void;
+  reset: () => void;
 }
 
 export const useCheckInStore = create<State>((set) => ({
-  data: null,
-  setData: (data) => set({ data }),
+  checkIn: null,
+  recommendation: null,
+  setCheckIn: (data) => set({ checkIn: data }),
+  setRecommendation: (rec) => set({ recommendation: rec }),
+  reset: () => set({ checkIn: null, recommendation: null }),
 }));
