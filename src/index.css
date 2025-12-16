@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 @import '../public/fonts/fonts.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /*필요에 따라 추가해서 쓰시면 됩니다!*/
 :root {
