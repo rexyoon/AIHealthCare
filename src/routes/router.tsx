@@ -1,3 +1,8 @@
+import AiChat from "@/pages/ai/aichat";
+import CheckIn from "@/pages/CheckIn/CheckIn";
+import Dashboard from "@/pages/Dashboard/Dashboard";
+import History from "@/pages/History/History";
+import Result from "@/pages/Result/Result";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 
