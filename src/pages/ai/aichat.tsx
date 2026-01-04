@@ -1,14 +1,11 @@
-// src/pages/ai/AiChat.js
 import React from 'react';
-import OpenAIChat from '../../component/ai_explore/OpenAIChat'; // OpenAIChat 컴포넌트 경로 확인
-
-const AiChat = () => {
+import OpenAIChat from '../../component/ai_explore/OpenAIChat'; 
+const AiChat: React.FC = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-900">
-      <h1 className="text-2xl text-white">AI CHAT</h1>
-      <OpenAIChat /> {/* OpenAIChat 컴포넌트 사용 */}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 px-4">
+      <h1 className="text-2xl text-white mb-4">AI CHAT</h1>
+      <OpenAIChat />
     </div>
   );
 };
-
 export default AiChat;
