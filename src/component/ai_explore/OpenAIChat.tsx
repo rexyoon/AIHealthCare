@@ -11,7 +11,7 @@ type ChatMessage = {
   createdAt: number;
 };
 
-// 백엔드가 JsonNode를 그대로 내려주므로 응답 타입은 "unknown" 또는 "Record<string, any>"가 맞음
+// 백엔드가 JsonNode를 그대로 내려옴
 type AiJsonResponse = Record<string, any> | string;
 
 function uid() {
@@ -34,11 +34,12 @@ const OpenAIChat: React.FC = () => {
     {
       id: uid(),
       role: "assistant",
-      content: "AI COACH 준비 완료. 혈압/혈당/체중 입력하면 분석 결과를 줄게.",
+      content: "안녕하세요 AI 코치 IronLogic입니다.",
       createdAt: Date.now(),
     },
   ]);
   const [isSending, setIsSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const listRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -72,15 +73,13 @@ const OpenAIChat: React.FC = () => {
 
     // 유저 메시지 추가
     pushMessage("user", text);
-
     setUserInput("");
     setIsSending(true);
+    setErrorMessage(""); // 에러 메시지 초기화
 
     try {
-      // ✅ 응답은 JSON(JsonNode)로 내려오므로 제네릭을 AiJsonResponse로
       const res = await api.post<AiJsonResponse>("/api/openai/query", { query: text });
       const pretty = formatAiResponse(res.data);
-
       pushMessage("assistant", pretty);
     } catch (error: any) {
       const status = error?.response?.status;
@@ -93,12 +92,8 @@ const OpenAIChat: React.FC = () => {
       });
 
       const serverMsg = data ? `\n\n[서버 응답]\n${formatAiResponse(data)}` : "";
-
-      pushMessage(
-        "assistant",
-        `요청 실패. (${status ?? "NO_STATUS"}) 백엔드 로그/엔드포인트/포트 확인해.` +
-          serverMsg
-      );
+      setErrorMessage(`요청 실패. (${status ?? "NO_STATUS"}) 백엔드 로그/엔드포인트/포트 확인해.${serverMsg}`);
+      pushMessage("assistant", `요청 실패. (${status ?? "NO_STATUS"})`);
     } finally {
       setIsSending(false);
       inputRef.current?.focus();
@@ -125,30 +120,23 @@ const OpenAIChat: React.FC = () => {
     <div className="w-full max-w-[380px]">
       {/* Card */}
       <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm">
-        {/* Header (목업처럼 블랙 헤더) */}
+        {/* Header */}
         <div className="flex h-12 items-center bg-black px-4">
           <div className="text-sm font-semibold tracking-wide text-white">AI COACH</div>
         </div>
 
-        {/* Messages (화이트 캔버스) */}
+        {/* Messages */}
         <div ref={listRef} className="h-[520px] overflow-y-auto bg-white px-4 py-4">
           <div className="flex flex-col gap-3">
             {messages.map((m) => {
               const isUser = m.role === "user";
-
               return (
-                <div
-                  key={m.id}
-                  className={`flex ${isUser ? "justify-end" : "justify-start"}`}
-                >
-                  <div
-                    className={[
-                      "max-w-[85%] whitespace-pre-wrap break-words rounded-xl px-3 py-2 text-sm leading-relaxed",
-                      isUser ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-900",
-                      // JSON 보기 좋게: AI 응답은 모노 스페이스
-                      !isUser ? "font-mono" : "",
-                    ].join(" ")}
-                  >
+                <div key={m.id} className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
+                  <div className={[
+                    "max-w-[85%] whitespace-pre-wrap break-words rounded-xl px-3 py-2 text-sm leading-relaxed",
+                    isUser ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-900",
+                    !isUser ? "font-mono" : "",
+                  ].join(" ")}>
                     {m.content}
                   </div>
                 </div>
@@ -162,10 +150,18 @@ const OpenAIChat: React.FC = () => {
                 </div>
               </div>
             )}
+            
+            {errorMessage && (
+              <div className="flex justify-start">
+                <div className="max-w-[85%] rounded-xl bg-red-100 px-3 py-2 text-sm text-red-600">
+                  {errorMessage}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Bottom input bar (목업처럼 회색 입력바 + 우측 X 버튼) */}
+        {/* Bottom input bar */}
         <form onSubmit={handleSubmit} className="bg-white p-3">
           <div className="relative">
             <input
@@ -192,15 +188,13 @@ const OpenAIChat: React.FC = () => {
               aria-label={userInput.trim().length ? "send" : "clear"}
               title={userInput.trim().length ? "Send (Enter)" : "Clear (Esc)"}
             >
-              <img src={SendingIcon}alt="=clear"className="h-7 w-7 "/>
+              <img src={SendingIcon} alt="send" className="h-7 w-7" />
             </button>
           </div>
 
           <div className="mt-2 text-[11px] text-zinc-500">
             Enter: 전송 · Esc: 입력 지우기
           </div>
-
-          {/* 접근성/디버그용: 폼 submit도 가능하지만 버튼은 X로 통일 */}
           <button type="submit" className="hidden" disabled={!canSend} aria-hidden="true" />
         </form>
       </div>
