@@ -20,7 +20,7 @@ export default function BottomNav() {
           <span className="text-base">⚡</span>
           <span>Result</span>
         </NavLink>
-        <NavLink to="/history" className={({ isActive }) => `${base} ${isActive ? on : off}`}>
+        <NavLink to="/dashboard" className={({ isActive }) => `${base} ${isActive ? on : off}`}>
           <span className="text-base">📈</span>
           <span>History</span>
         </NavLink>
