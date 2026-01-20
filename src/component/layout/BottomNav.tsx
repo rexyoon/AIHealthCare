@@ -12,13 +12,9 @@ export default function BottomNav() {
           <span className="text-base">🏠</span>
           <span>Home</span>
         </NavLink>
-        <NavLink to="/checkin" className={({ isActive }) => `${base} ${isActive ? on : off}`}>
+        <NavLink to="/ai/aichat" className={({ isActive }) => `${base} ${isActive ? on : off}`}>
           <span className="text-base">📝</span>
           <span>Check-in</span>
-        </NavLink>
-        <NavLink to="/result" className={({ isActive }) => `${base} ${isActive ? on : off}`}>
-          <span className="text-base">⚡</span>
-          <span>Result</span>
         </NavLink>
         <NavLink to="/dashboard" className={({ isActive }) => `${base} ${isActive ? on : off}`}>
           <span className="text-base">📈</span>
