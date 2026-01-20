@@ -16,7 +16,7 @@ export default function AppRouter() {
       <Route path="/" element={<HealthcareHome />} />  
       <Route path="*" element={<Navigate to="/" replace />} />
       <Route path="/health/history" element={<HealthHistoryPage />} />
-      <Route path="//health/dashboard/:date" element={<HealthMetricsDashboard />} />
+      <Route path="/health/dashboard/:date" element={<HealthMetricsDashboard />} />
     </Routes>
   );
 }
