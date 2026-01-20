@@ -14,9 +14,9 @@ export default function BottomNav() {
         </NavLink>
         <NavLink to="/ai/aichat" className={({ isActive }) => `${base} ${isActive ? on : off}`}>
           <span className="text-base">📝</span>
-          <span>Check-in</span>
+          <span>AI-CHAT</span>
         </NavLink>
-        <NavLink to="/dashboard" className={({ isActive }) => `${base} ${isActive ? on : off}`}>
+        <NavLink to="/health/history" className={({ isActive }) => `${base} ${isActive ? on : off}`}>
           <span className="text-base">📈</span>
           <span>History</span>
         </NavLink>
