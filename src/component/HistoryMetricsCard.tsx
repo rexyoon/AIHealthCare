@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 type Tone = "good" | "warn" | "bad" | "muted";
 type Row = {
   label: string;
