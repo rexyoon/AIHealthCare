@@ -5,6 +5,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import HealthcareHome from "@/pages/HealthcareHome";
 import HealthMetricsDashboard from "@/pages/Dashboard/HealthMetricsDashboard";
 import HealthHistoryPage from "@/pages/Dashboard/HealthHistoryPage";
+import LoginPage from "@/pages/Login/LoginPage";
+import WeightGraph from "@/pages/Result/WeightGraph";
 
 export default function AppRouter() {
   return (
@@ -17,6 +19,8 @@ export default function AppRouter() {
       <Route path="*" element={<Navigate to="/" replace />} />
       <Route path="/health/history" element={<HealthHistoryPage />} />
       <Route path="/health/dashboard/:date" element={<HealthMetricsDashboard />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/result/weight-graph" element={<WeightGraph />} />
     </Routes>
   );
 }

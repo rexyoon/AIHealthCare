@@ -6,58 +6,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-dvh bg-black text-zinc-100">
-      {/* Header */}
-      <header className="sticky top-0 z-10 w-full border-b border-zinc-800 bg-black">
-        <div className="flex h-14 items-center justify-between px-4">
-          {/* Left: Hamburger */}
-          <button
-            type="button"
-            aria-label="menu"
-            className="flex flex-col gap-1.5"
-          >
-            <span className="block h-0.5 w-6 bg-[#39FF14]" />
-            <span className="block h-0.5 w-6 bg-[#39FF14]" />
-            <span className="block h-0.5 w-6 bg-[#39FF14]" />
-          </button>
-
-          {/* Center: Logo */}
-          <div className="flex flex-col items-center leading-none">
-            <div className="flex items-center gap-2">
-              {/* simple neon mark */}
-              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-[#39FF14] shadow-[0_0_10px_rgba(57,255,20,0.55)]" />
-              <span className="text-xs font-semibold text-[#39FF14] drop-shadow-[0_0_10px_rgba(57,255,20,0.45)]">
-                AI Coach
-              </span>
-            </div>
-            <span className="text-xs font-bold text-[#39FF14] drop-shadow-[0_0_10px_rgba(57,255,20,0.45)]">
-              Iron Logic
-            </span>
-          </div>
-
-          {/* Right: User icon */}
-          <button type="button" aria-label="profile" className="p-1">
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="text-[#39FF14] drop-shadow-[0_0_10px_rgba(57,255,20,0.45)]"
-            >
-              <path
-                d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-              <path
-                d="M20 21a8 8 0 0 0-16 0"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-          </button>
-        </div>
-      </header>
+    
 
       {/* Body */}
       <main className="mx-auto flex min-h-[calc(100dvh-56px)] w-full max-w-[380px] flex-col px-5">
